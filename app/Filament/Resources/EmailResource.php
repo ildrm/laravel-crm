@@ -6,6 +6,7 @@ use App\Filament\Resources\EmailResource\Pages;
 use App\Filament\Resources\EmailResource\RelationManagers;
 use App\Models\Email;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,35 @@ class EmailResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('contact_id')
+                    ->relationship(
+                        name: 'contact',
+                        modifyQueryUsing: fn (Builder $query) => $query->select(['id', 'first_name', 'last_name'])->orderBy('first_name'),
+                        titleAttribute: fn ($record) => trim($record?->first_name . ' ' . $record?->last_name)
+                    )
+                    ->searchable(['first_name', 'last_name'])
+                    ->preload()
+                    ->required(),
+    
+                Forms\Components\TextInput::make('subject')
+                    ->required()
+                    ->maxLength(255),
+    
+                Forms\Components\RichEditor::make('body')
+                    ->required()
+                    ->columnSpanFull(),
+    
+                Forms\Components\DateTimePicker::make('sent_at')
+                    ->nullable(),
+    
+                Select::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'sent' => 'Sent',
+                        'scheduled' => 'Scheduled',
+                    ])
+                    ->default('draft')
+                    ->required(),
             ]);
     }
 

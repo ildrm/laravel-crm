@@ -6,6 +6,7 @@ use App\Filament\Resources\NoteResource\Pages;
 use App\Filament\Resources\NoteResource\RelationManagers;
 use App\Models\Note;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,29 @@ class NoteResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('contact_id')
+                    ->relationship(
+                        name: 'contact',
+                        modifyQueryUsing: fn (Builder $query) => $query->select(['id', 'first_name', 'last_name'])->orderBy('first_name'),
+                        titleAttribute: fn ($record) => trim($record?->first_name . ' ' . $record?->last_name)
+                    )
+                    ->searchable(['first_name', 'last_name'])
+                    ->preload()
+                    ->nullable(),
+    
+                Select::make('deal_id')
+                    ->relationship(
+                        name: 'deal',
+                        modifyQueryUsing: fn (Builder $query) => $query->select(['id', 'title']),
+                        titleAttribute: 'title'
+                    )
+                    ->searchable()
+                    ->preload()
+                    ->nullable(),
+    
+                Forms\Components\Textarea::make('content')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 

@@ -6,6 +6,7 @@ use App\Filament\Resources\DealResource\Pages;
 use App\Filament\Resources\DealResource\RelationManagers;
 use App\Models\Deal;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,40 @@ class DealResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('contact_id')
+                    ->relationship(
+                        name: 'contact',
+                        modifyQueryUsing: fn (Builder $query) => $query->select(['id', 'first_name', 'last_name'])->orderBy('first_name'),
+                        titleAttribute: fn ($record) => trim($record?->first_name . ' ' . $record?->last_name)
+                    )
+                    ->searchable(['first_name', 'last_name'])
+                    ->preload()
+                    ->nullable(),
+
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('value')
+                    ->numeric()
+                    ->prefix('$'),
+
+                Select::make('stage')
+                    ->options([
+                        'lead' => 'Lead',
+                        'proposal' => 'Proposal',
+                        'negotiation' => 'Negotiation',
+                        'closed_won' => 'Closed Won',
+                        'closed_lost' => 'Closed Lost',
+                    ])
+                    ->required(),
+
+                Forms\Components\DatePicker::make('expected_close_date')
+                    ->nullable(),
+
+                Forms\Components\Textarea::make('description')
+                    ->nullable()
+                    ->columnSpanFull(),
             ]);
     }
 

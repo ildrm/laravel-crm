@@ -23,7 +23,29 @@ class CompanyResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                    
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->maxLength(255),
+                    
+                Forms\Components\TextInput::make('phone')
+                    ->tel()
+                    ->maxLength(255),
+                    
+                Forms\Components\TextInput::make('address')
+                    ->maxLength(255),
+                    
+                Forms\Components\TextInput::make('city')
+                    ->maxLength(255),
+                    
+                Forms\Components\TextInput::make('state')
+                    ->maxLength(255),
+                    
+                Forms\Components\TextInput::make('country')
+                    ->maxLength(255),
             ]);
     }
 

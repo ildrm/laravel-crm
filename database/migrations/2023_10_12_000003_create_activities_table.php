@@ -15,9 +15,9 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contact_id')->constrained('contacts')->onDelete('cascade');
+            $table->foreignId('contact_id')->nullable()->constrained();
             $table->foreignId('deal_id')->nullable()->constrained('deals')->onDelete('cascade');
-            $table->string('type'); // e.g., task, call, event
+            $table->string('type')->nullable(); // e.g., task, call, event
             $table->text('description')->nullable();
             $table->timestamp('scheduled_at')->nullable();
             $table->timestamps();
