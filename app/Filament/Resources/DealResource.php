@@ -18,7 +18,7 @@ class DealResource extends Resource
 {
     protected static ?string $model = Deal::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-numbered-list';
 
     public static function form(Form $form): Form
     {
