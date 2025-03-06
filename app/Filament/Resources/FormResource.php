@@ -16,7 +16,7 @@ class FormResource extends Resource
     protected static ?string $model = Form::class;
 
     protected static ?string $navigationIcon = 'heroicon-c-table-cells';
-    protected static ?string $navigationGroup = 'Communication';
+    protected static ?string $navigationGroup = 'Engagement';
 
     public static function form(FilamentForm $form): FilamentForm
     {

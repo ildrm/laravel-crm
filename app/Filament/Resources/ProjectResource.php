@@ -14,7 +14,9 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-folder';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    protected static ?string $navigationLabel = 'Projects';
+    protected static ?string $navigationGroup = 'Tasks & Workflow';
 
     public static function form(Form $form): Form
     {
@@ -25,14 +27,12 @@ class ProjectResource extends Resource
             Forms\Components\Textarea::make('description')
                 ->label('Description')
                 ->nullable(),
-            Forms\Components\Select::make('status')
-                ->label('Status')
-                ->options([
-                    'active' => 'Active',
-                    'inactive' => 'Inactive',
-                    'completed' => 'Completed',
-                ])
-                ->required(),
+            Forms\Components\DatePicker::make('start_date')
+                ->label('Start Date')
+                ->nullable(),
+            Forms\Components\DatePicker::make('end_date')
+                ->label('End Date')
+                ->nullable(),
         ]);
     }
 
@@ -41,10 +41,16 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Project Name'),
-                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\TextColumn::make('start_date')->label('Start Date'),
+                Tables\Columns\TextColumn::make('end_date')->label('End Date'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            // Add actions to include create button
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\CreateAction::make(),
             ]);
     }
 

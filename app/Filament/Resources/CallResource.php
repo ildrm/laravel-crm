@@ -15,7 +15,7 @@ class CallResource extends Resource
     protected static ?string $model = Call::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-phone';
-    protected static ?string $navigationGroup = 'Communication';
+    protected static ?string $navigationGroup = 'Engagement';
 
 
     public static function form(Form $form): Form

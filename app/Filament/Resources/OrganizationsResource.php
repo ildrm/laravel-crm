@@ -2,18 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Role; // Import the Role model
-use Filament\Resources\Resource;
 use App\Filament\Resources\OrganizationsResource\Pages;
-
-use Filament\Resources\Pages\Page;
+use App\Models\Organization;
+use Filament\Resources\Resource;
 
 class OrganizationsResource extends Resource
-
 {
+    protected static ?string $model = Organization::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
     protected static ?string $navigationLabel = 'Organizations';
-    protected static string $view = 'filament.resources.calendar.pages.organizations'; // Update to the new calendar view
+    protected static ?string $navigationGroup = 'Sales & CRM';
 
     public static function getPages(): array
     {

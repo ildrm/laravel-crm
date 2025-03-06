@@ -3,17 +3,20 @@
 namespace App\Filament\Resources\CalendarResource\Pages;
 
 use App\Filament\Resources\CalendarResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Facades\FilamentView;
 
 class ListCalendars extends ListRecords
 {
     protected static string $resource = CalendarResource::class;
 
-    protected function getHeaderActions(): array
+    // Modify to return the full calendar view
+    public function getHeader(): ?\Illuminate\Contracts\View\View
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        $events = CalendarResource::renderFullCalendar();
+        
+        return view('filament.resources.calendar.full-calendar', [
+            'events' => $events
+        ]);
     }
 }

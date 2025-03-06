@@ -13,7 +13,7 @@ class SupportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lifebuoy';
     protected static ?string $navigationLabel = 'Support';
-    protected static ?string $navigationGroup = 'Help';
+    protected static ?string $navigationGroup = 'Support';
 
     public static function getPages(): array
     {

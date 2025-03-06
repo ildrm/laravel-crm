@@ -12,7 +12,13 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
-        'status',
-        // Add other relevant fields
+        'start_date',
+        'end_date',
+        'status'
+    ];
+
+    protected $dates = [
+        'start_date',
+        'end_date'
     ];
 }

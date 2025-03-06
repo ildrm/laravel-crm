@@ -15,6 +15,7 @@ class VisitResource extends Resource
     protected static ?string $model = Visit::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
+    protected static ?string $navigationGroup = 'Engagement';
 
     public static function form(Form $form): Form
     {
