@@ -13,13 +13,16 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\DB;
 
 class ActivityResource extends Resource
 {
     protected static ?string $model = Activity::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationLabel = 'Activities';
+    protected static ?string $navigationGroup = 'Main Menu';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

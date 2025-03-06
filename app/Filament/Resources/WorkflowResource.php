@@ -15,6 +15,8 @@ class WorkflowResource extends Resource
     protected static ?string $model = Workflow::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
+    protected static ?string $navigationGroup = 'Tasks & Workflow';
+
 
     public static function form(Form $form): Form
     {

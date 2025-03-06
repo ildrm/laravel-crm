@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\User;
 use App\Models\UserCredential;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -10,8 +11,12 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Actions\Action;
 
+
 class Profile extends Page
 {
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationGroup = 'User & Access Management';
+
     protected static string $view = 'filament.pages.profile';
     protected static bool $shouldRegisterNavigation = true;
 
@@ -361,14 +366,18 @@ class Profile extends Page
     {
         $data = $this->form->getState();
 
-        auth()->user()->update([
+        /** @var User $user */
+        $user = auth()->user();
+        $user->update([
+
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
         ]);
 
         foreach ($data['credentials'] as $credential) {
-            auth()->user()->credentials()->updateOrCreate(
+            $user->credentials()->updateOrCreate(
+
                 ['id' => $credential['id'] ?? null],
                 [
                     'name' => $credential['name'],

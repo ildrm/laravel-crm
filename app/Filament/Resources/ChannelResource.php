@@ -15,6 +15,8 @@ class ChannelResource extends Resource
     protected static ?string $model = Channel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-share';
+    protected static ?string $navigationGroup = 'Communication';
+
 
     public static function form(Form $form): Form
     {
