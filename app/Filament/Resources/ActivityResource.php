@@ -68,7 +68,9 @@ class ActivityResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('contact_id')->label('Contact ID'),
+                Tables\Columns\TextColumn::make('type')->label('Type'),
+                Tables\Columns\TextColumn::make('scheduled_at')->label('Scheduled At'),
             ])
             ->filters([
                 //

@@ -13,6 +13,9 @@ class Workflow extends Model
         'name',
         'trigger',
         'action',
+        'description',
+        'elements',
+        'connections',
         // Add other relevant fields
     ];
 }

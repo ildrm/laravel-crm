@@ -13,6 +13,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('trigger')->nullable();
             $table->string('action')->nullable();
+            $table->text('elements')->nullable(); // New field for storing workflow elements
+            $table->text('connections')->nullable(); // New field for storing connections between elements
             $table->text('description')->nullable();
             $table->timestamps();
         });
