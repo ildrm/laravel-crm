@@ -17,13 +17,21 @@ class ChannelResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-share';
     protected static ?string $navigationGroup = 'Engagement';
 
-
     public static function form(Form $form): Form
     {
         return $form->schema([
             Forms\Components\TextInput::make('name')
                 ->label('Channel Name')
                 ->required(),
+            Forms\Components\Select::make('type')
+                ->label('Channel Type')
+                ->options([
+                    'email' => 'Email',
+                    'phone' => 'Phone',
+                    'social_media' => 'Social Media',
+                    'other' => 'Other'
+                ])
+                ->nullable(),
             Forms\Components\Textarea::make('description')
                 ->label('Description')
                 ->nullable(),
@@ -35,9 +43,18 @@ class ChannelResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Channel Name'),
+                Tables\Columns\TextColumn::make('type')->label('Channel Type'),
+            ])
+            ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

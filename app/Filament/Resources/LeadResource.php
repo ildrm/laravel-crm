@@ -3,9 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LeadResource\Pages;
-use App\Filament\Resources\LeadResource\Pages\CreateLead;
-use App\Filament\Resources\LeadResource\Pages\EditLead;
-use App\Filament\Resources\LeadResource\Pages\ListLeads;
 use App\Models\Lead;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,7 +16,6 @@ class LeadResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationGroup = 'Sales & CRM';
-
 
     public static function form(Form $form): Form
     {
@@ -42,7 +38,8 @@ class LeadResource extends Resource
                     'qualified' => 'Qualified',
                     'lost' => 'Lost',
                 ])
-                ->required(),
+                ->required()
+                ->default('new'),
         ]);
     }
 
@@ -55,17 +52,25 @@ class LeadResource extends Resource
                 Tables\Columns\TextColumn::make('phone')->label('Phone Number'),
                 Tables\Columns\TextColumn::make('status')->label('Status'),
             ])
+            ->filters([
+                //
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListLeads::route('/'),
-            'create' => CreateLead::route('/create'),
-            'edit' => EditLead::route('/{record}/edit'),
+            'index' => Pages\ListLeads::route('/'),
+            'create' => Pages\CreateLead::route('/create'),
+            'edit' => Pages\EditLead::route('/{record}/edit'),
         ];
     }
 }

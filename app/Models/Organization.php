@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Channel extends Model
+class Organization extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'type',
-        'description'
+        'description',
+        'industry',
+        'address',
+        'phone',
+        'email'
     ];
 }

@@ -17,7 +17,6 @@ class MeetingResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
     protected static ?string $navigationGroup = 'Sales & CRM';
 
-
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -40,8 +39,16 @@ class MeetingResource extends Resource
                 Tables\Columns\TextColumn::make('subject')->label('Meeting Subject'),
                 Tables\Columns\TextColumn::make('date_time')->label('Date and Time'),
             ])
+            ->filters([
+                //
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

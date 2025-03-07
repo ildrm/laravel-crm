@@ -17,16 +17,18 @@ class CallResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-phone';
     protected static ?string $navigationGroup = 'Engagement';
 
-
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('contact_id')
-                ->label('Contact ID')
+            Forms\Components\Select::make('contact_id')
+                ->relationship('contact', 'name')
+                ->searchable()
+                ->preload()
                 ->required(),
             Forms\Components\TextInput::make('duration')
                 ->label('Duration (minutes)')
-                ->nullable(),
+                ->nullable()
+                ->numeric(),
             Forms\Components\Select::make('status')
                 ->label('Status')
                 ->options([
@@ -34,7 +36,8 @@ class CallResource extends Resource
                     'completed' => 'Completed',
                     'failed' => 'Failed',
                 ])
-                ->required(),
+                ->required()
+                ->default('pending'),
         ]);
     }
 
@@ -42,12 +45,20 @@ class CallResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('contact_id')->label('Contact ID'),
+                Tables\Columns\TextColumn::make('contact.name')->label('Contact'),
                 Tables\Columns\TextColumn::make('duration')->label('Duration'),
                 Tables\Columns\TextColumn::make('status')->label('Status'),
             ])
+            ->filters([
+                //
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

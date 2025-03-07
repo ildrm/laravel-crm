@@ -18,7 +18,8 @@ class CompanyResource extends Resource
     protected static ?string $model = Company::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
-    protected static ?string $navigationGroup = 'Sales & CRM';
+    protected static ?string $navigationGroup = 'Organization';
+    // protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

@@ -17,7 +17,6 @@ class WorkflowResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
     protected static ?string $navigationGroup = 'Tasks & Workflow';
 
-
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -27,6 +26,12 @@ class WorkflowResource extends Resource
             Forms\Components\Textarea::make('description')
                 ->label('Description')
                 ->nullable(),
+            Forms\Components\TextInput::make('trigger')
+                ->label('Trigger')
+                ->nullable(),
+            Forms\Components\TextInput::make('action')
+                ->label('Action')
+                ->nullable(),
         ]);
     }
 
@@ -35,9 +40,19 @@ class WorkflowResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Workflow Name'),
+                Tables\Columns\TextColumn::make('trigger')->label('Trigger'),
+                Tables\Columns\TextColumn::make('action')->label('Action'),
+            ])
+            ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
